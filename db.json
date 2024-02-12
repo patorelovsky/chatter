@@ -1,0 +1,28 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "a title",
+      "comments": [
+        { "text": "a comment about post 1" },
+        { "text": "another comment about post 1" }
+      ],
+      "images": [
+        { "url": "https://loremflickr.com/640/480" },
+        { "url": "https://loremflickr.com/640/480" }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "another title",
+      "comments": [
+        { "text": "a comment about post 2" },
+        { "text": "another comment about post 2" }
+      ],
+      "images": [
+        { "url": "https://loremflickr.com/640/480" },
+        { "url": "https://loremflickr.com/640/480" }
+      ]
+    }
+  ]
+}
