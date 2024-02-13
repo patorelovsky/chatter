@@ -1,4 +1,6 @@
 import { useForm } from "react-hook-form";
+import { useCreatePostMutation } from "../redux";
+import { useEffect } from "react";
 
 type Inputs = {
   title: string;
@@ -8,17 +10,26 @@ export default function PostForm() {
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    reset,
+    formState: { errors, isSubmitSuccessful },
   } = useForm<Inputs>();
+  const [createPost, result] = useCreatePostMutation();
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
 
   function onSubmit({ title }: Inputs) {
-    console.log(title);
+    createPost({ title });
   }
 
   return (
     <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex items-center border-b border-teal-500 py-2">
         <input
+          disabled={result.isLoading}
           className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
           placeholder="Enter text..."
           {...register("title", {
