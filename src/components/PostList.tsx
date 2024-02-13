@@ -4,7 +4,7 @@ import Post from "./Post";
 export default function PostList() {
   const { isError, isFetching, data } = useGetPostsQuery(1);
 
-  const getContent = () => {
+  function getContent() {
     if (isFetching) {
       return <div>Loading...</div>;
     } else if (isError) {
@@ -12,7 +12,7 @@ export default function PostList() {
     } else {
       return data?.map((post) => <Post key={post.id} post={post} />);
     }
-  };
+  }
 
   return (
     <div>
