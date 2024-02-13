@@ -2,7 +2,7 @@ import PostList from "./components/PostList";
 
 export default function App() {
   return (
-    <div>
+    <div className="container m-1">
       <PostList />
     </div>
   );
