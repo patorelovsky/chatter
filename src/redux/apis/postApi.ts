@@ -27,7 +27,18 @@ export const postApi = createApi({
       }),
       invalidatesTags: ["Post"],
     }),
+    deletePost: builder.mutation<void, Partial<Post> & Pick<Post, "id">>({
+      query: ({ id }) => ({
+        url: `/posts/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Post"],
+    }),
   }),
 });
 
-export const { useGetPostsQuery, useCreatePostMutation } = postApi;
+export const {
+  useGetPostsQuery,
+  useCreatePostMutation,
+  useDeletePostMutation,
+} = postApi;
