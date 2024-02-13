@@ -4,3 +4,4 @@ export {
   useCreatePostMutation,
   useDeletePostMutation,
 } from "./apis/postApi";
+export { useGetImagesQuery } from "./apis/imageApi";
