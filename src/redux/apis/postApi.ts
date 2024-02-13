@@ -19,8 +19,8 @@ export const postApi = createApi({
       transformResponse: ({ data }: { data: Post[] }) => data,
       providesTags: ["Post"],
     }),
-    createPost: builder.mutation({
-      query: (post: { title: string }) => ({
+    createPost: builder.mutation<Post, Omit<Post, "id">>({
+      query: (post) => ({
         url: "/posts",
         method: "POST",
         body: post,
