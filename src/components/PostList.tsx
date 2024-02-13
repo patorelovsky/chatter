@@ -17,7 +17,7 @@ export default function PostList() {
   return (
     <div>
       <h1>Posts</h1>
-      <main>{getContent()}</main>
+      <div>{getContent()}</div>
     </div>
   );
 }
