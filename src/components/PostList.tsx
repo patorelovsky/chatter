@@ -5,10 +5,10 @@ export default function PostList() {
   const { error, isFetching, data } = useFetchPostsQuery(1);
 
   const getContent = () => {
-    if (error) {
-      return <div>`Error: ${error.toString()}`</div>;
-    } else if (isFetching) {
+    if (isFetching) {
       return <div>Loading...</div>;
+    } else if (error) {
+      return <div>Error loading posts.</div>;
     } else {
       return data?.map((post) => <Post key={post.id} post={post} />);
     }
