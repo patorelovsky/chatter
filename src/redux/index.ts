@@ -1,2 +1,2 @@
 export * from "./store";
-export { useFetchPostsQuery, useCreatePostMutation } from "./apis/postApi";
+export { useGetPostsQuery, useCreatePostMutation } from "./apis/postApi";

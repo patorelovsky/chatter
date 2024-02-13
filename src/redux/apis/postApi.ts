@@ -8,7 +8,7 @@ export const postApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
   tagTypes: ["Post"],
   endpoints: (builder) => ({
-    fetchPosts: builder.query<Post[], number>({
+    getPosts: builder.query<Post[], number>({
       query: (page = 1) => ({
         url: `/posts`,
         params: {
@@ -30,4 +30,4 @@ export const postApi = createApi({
   }),
 });
 
-export const { useFetchPostsQuery, useCreatePostMutation } = postApi;
+export const { useGetPostsQuery, useCreatePostMutation } = postApi;

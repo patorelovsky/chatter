@@ -1,8 +1,8 @@
-import { useFetchPostsQuery } from "../redux";
+import { useGetPostsQuery } from "../redux";
 import Post from "./Post";
 
 export default function PostList() {
-  const { isError, isFetching, data } = useFetchPostsQuery(1);
+  const { isError, isFetching, data } = useGetPostsQuery(1);
 
   const getContent = () => {
     if (isFetching) {
