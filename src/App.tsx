@@ -1,3 +1,9 @@
+import PostList from "./components/PostList";
+
 export default function App() {
-  return <div>Hello World!</div>;
+  return (
+    <div>
+      <PostList />
+    </div>
+  );
 }
