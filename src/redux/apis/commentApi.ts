@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { Comment } from "../../types";
 
-type GetCommentsArgs = Pick<Comment, "postId"> & {
+type GetCommentsArgs = Pick<Comment, "parentId" | "parentType"> & {
   _page: number;
   _per_page: number;
 };
@@ -19,7 +19,13 @@ export const commentApi = createApi({
       providesTags(results, _error, args) {
         const tags = [];
 
-        tags.push({ type: "Post" as const, id: args.postId });
+        tags.push({
+          type:
+            args.parentType === "post"
+              ? ("Post" as const)
+              : ("Comment" as const),
+          id: args.parentId,
+        });
 
         if (results) {
           tags.push(
@@ -36,19 +42,43 @@ export const commentApi = createApi({
         method: "POST",
         body: comment,
       }),
-      invalidatesTags: (_results, _error, args) => [
-        { type: "Post", id: args.postId },
-      ],
+      invalidatesTags(_result, _error, args) {
+        const tags = [];
+
+        tags.push({
+          type:
+            args.parentType === "post"
+              ? ("Post" as const)
+              : ("Comment" as const),
+          id: args.parentId,
+        });
+
+        return tags;
+      },
     }),
-    deleteComment: builder.mutation<void, Pick<Comment, "id" | "postId">>({
+    deleteComment: builder.mutation<
+      void,
+      Pick<Comment, "id" | "parentId" | "parentType">
+    >({
       query: ({ id }) => ({
         url: `/comments/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: (_result, _error, args) => [
-        { type: "Comment", id: args.id },
-        { type: "Post", id: args.postId },
-      ],
+      invalidatesTags(_result, _error, args) {
+        const tags = [];
+
+        tags.push({ type: "Comment" as const, id: args.id });
+
+        tags.push({
+          type:
+            args.parentType === "post"
+              ? ("Post" as const)
+              : ("Comment" as const),
+          id: args.parentId,
+        });
+
+        return tags;
+      },
     }),
   }),
 });

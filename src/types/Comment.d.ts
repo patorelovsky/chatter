@@ -1,5 +1,6 @@
 export type Comment = {
   id: number;
   text: string;
-  postId: number;
+  parentId: number;
+  parentType: "post" | "comment";
 };

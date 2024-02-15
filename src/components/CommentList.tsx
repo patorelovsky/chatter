@@ -1,14 +1,13 @@
 import { useGetCommentsQuery } from "../redux";
-import type { Post } from "../types";
+import type { Comment as CommentType } from "../types";
 import Comment from "./Comment";
 
-type Props = {
-  post: Post;
-};
+type Props = Pick<CommentType, "parentId" | "parentType">;
 
-export default function CommentList({ post }: Props) {
+export default function CommentList({ parentId, parentType }: Props) {
   const { isFetching, isError, data } = useGetCommentsQuery({
-    postId: post.id,
+    parentId,
+    parentType,
     _page: 1,
     _per_page: 10,
   });

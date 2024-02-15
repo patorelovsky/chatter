@@ -28,7 +28,7 @@ export default function Post({ post }: Props) {
         </button>
       </div>
       <ImageList parentId={post.id} parentType="post" />
-      <CommentList post={post} />
+      <CommentList parentId={post.id} parentType="post" />
     </div>
   );
 }
