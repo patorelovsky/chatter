@@ -2,7 +2,10 @@ import { useGetPostsQuery } from "../redux";
 import Post from "./Post";
 
 export default function PostList() {
-  const { isError, isFetching, data } = useGetPostsQuery(1);
+  const { isError, isFetching, data } = useGetPostsQuery({
+    _page: 1,
+    _per_page: 10,
+  });
 
   function getContent() {
     if (isFetching) {

@@ -2,12 +2,14 @@ import { useGetImagesQuery } from "../redux";
 import type { Image as ImageType } from "../types";
 import Image from "./Image";
 
-type Props = Partial<ImageType> & Pick<ImageType, "parentId" | "parentType">;
+type Props = Pick<ImageType, "parentId" | "parentType">;
 
 export default function ImageList({ parentId, parentType }: Props) {
   const { isFetching, isError, data } = useGetImagesQuery({
     parentId,
     parentType,
+    _page: 1,
+    _per_page: 10,
   });
 
   function getContent() {
