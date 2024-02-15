@@ -1,9 +1,34 @@
-import { Post } from "../types";
+import { useGetCommentsQuery } from "../redux";
+import type { Post } from "../types";
+import Comment from "./Comment";
 
 type Props = {
   post: Post;
 };
 
 export default function CommentList({ post }: Props) {
-  return <div>CommentList for {post.id}</div>;
+  const { isFetching, isError, data } = useGetCommentsQuery({
+    postId: post.id,
+    _page: 1,
+    _per_page: 10,
+  });
+
+  function getContent() {
+    if (isFetching) {
+      return <p>Loading...</p>;
+    } else if (isError) {
+      return <p>Error loading comments.</p>;
+    } else {
+      return data?.map((comment) => (
+        <Comment key={comment.id} comment={comment} />
+      ));
+    }
+  }
+
+  return (
+    <div>
+      <h2>CommentList for {post.id}</h2>
+      <div>{getContent()}</div>
+    </div>
+  );
 }
