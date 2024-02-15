@@ -22,7 +22,7 @@ export default function PostForm() {
   }, [isSubmitSuccessful, reset]);
 
   function onSubmit({ title }: Inputs) {
-    createPost({ title });
+    createPost({ text: title });
   }
 
   return (

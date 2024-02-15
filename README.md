@@ -36,14 +36,14 @@ export default {
   "posts": [
     {
       "id": 1,
-      "title": "First Post"
+      "text": "First Post"
     }
   ],
   "comments": [
     {
       "id": 1,
       "postId": 1,
-      "body": "Great post!"
+      "text": "Great post!"
     }
   ],
   "images": [
