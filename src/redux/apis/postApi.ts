@@ -16,7 +16,6 @@ export const postApi = createApi({
         url: `/posts`,
         params,
       }),
-      transformResponse: ({ data }: { data: Post[] }) => data,
       providesTags(results) {
         const tags = [];
 

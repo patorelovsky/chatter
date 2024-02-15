@@ -16,7 +16,6 @@ export const commentApi = createApi({
         url: `/comments`,
         params,
       }),
-      transformResponse: ({ data }: { data: Comment[] }) => data,
       providesTags(results, _error, args) {
         const tags = [];
 

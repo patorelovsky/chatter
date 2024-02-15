@@ -16,7 +16,6 @@ export const imageApi = createApi({
         url: `/images`,
         params,
       }),
-      transformResponse: ({ data }: { data: Image[] }) => data,
       providesTags(results, _error, args) {
         const tags = [];
 
