@@ -17,7 +17,19 @@ export const commentApi = createApi({
         params,
       }),
       transformResponse: ({ data }: { data: Comment[] }) => data,
-      providesTags: ["Comment"],
+      providesTags: (results, _error, args) => {
+        const tags = [];
+
+        tags.push({ type: "Post" as const, id: args.postId });
+
+        if (results) {
+          tags.push(
+            ...results.map((r) => ({ type: "Comment" as const, id: r.id }))
+          );
+        }
+
+        return tags;
+      },
     }),
     createComment: builder.mutation<Comment, Omit<Comment, "id">>({
       query: (comment) => ({
@@ -25,7 +37,9 @@ export const commentApi = createApi({
         method: "POST",
         body: comment,
       }),
-      invalidatesTags: ["Comment"],
+      invalidatesTags: (_results, _error, args) => [
+        { type: "Post", id: args.postId },
+      ],
     }),
     deleteComment: builder.mutation<void, Pick<Comment, "id" | "postId">>({
       query: ({ id }) => ({

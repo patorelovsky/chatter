@@ -17,16 +17,20 @@ export const imageApi = createApi({
         params,
       }),
       transformResponse: ({ data }: { data: Image[] }) => data,
-      providesTags: (result, _error, args) => {
+      providesTags: (results, _error, args) => {
         const tags = [];
 
-        const type =
-          args.parentType === "post" ? ("Post" as const) : ("Comment" as const);
-        tags.push({ type, id: args.parentId });
+        tags.push({
+          type:
+            args.parentType === "post"
+              ? ("Post" as const)
+              : ("Comment" as const),
+          id: args.parentId,
+        });
 
-        if (result) {
+        if (results) {
           tags.push(
-            ...result.map((r) => ({ type: "Image" as const, id: r.id }))
+            ...results.map((r) => ({ type: "Image" as const, id: r.id }))
           );
         }
 
@@ -42,21 +46,40 @@ export const imageApi = createApi({
       invalidatesTags: (_result, _error, args) => {
         const tags = [];
 
-        const type =
-          args.parentType === "post" ? ("Post" as const) : ("Comment" as const);
-        tags.push({ type, id: args.parentId });
+        tags.push({
+          type:
+            args.parentType === "post"
+              ? ("Post" as const)
+              : ("Comment" as const),
+          id: args.parentId,
+        });
 
         return tags;
       },
     }),
-    deleteImage: builder.mutation<void, Pick<Image, "id">>({
+    deleteImage: builder.mutation<
+      void,
+      Pick<Image, "id" | "parentId" | "parentType">
+    >({
       query: ({ id }) => ({
         url: `/images/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: (_result, _error, args) => [
-        { type: "Image", id: args.id },
-      ],
+      invalidatesTags: (_result, _error, args) => {
+        const tags = [];
+
+        tags.push({ type: "Image" as const, id: args.id });
+
+        tags.push({
+          type:
+            args.parentType === "post"
+              ? ("Post" as const)
+              : ("Comment" as const),
+          id: args.parentId,
+        });
+
+        return tags;
+      },
     }),
   }),
 });
