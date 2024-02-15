@@ -1,5 +1,6 @@
 import { useDeletePostMutation } from "../redux";
 import { Post } from "../types/Post";
+import CommentList from "./CommentList";
 import ImageList from "./ImageList";
 
 type Props = {
@@ -14,9 +15,9 @@ export default function Post({ post }: Props) {
   }
 
   return (
-    <div>
+    <div className="border-b-2 border-black border-solid mb-2">
       <div className="flex w-64 justify-between">
-        <p>{post.title}</p>
+        <p>{post.text}</p>
         <button
           type="button"
           disabled={result.isLoading}
@@ -27,6 +28,7 @@ export default function Post({ post }: Props) {
         </button>
       </div>
       <ImageList parentId={post.id} parentType="post" />
+      <CommentList post={post} />
     </div>
   );
 }
