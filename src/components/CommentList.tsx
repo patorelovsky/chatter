@@ -26,8 +26,8 @@ export default function CommentList({ post }: Props) {
   }
 
   return (
-    <div>
-      <h2>CommentList for {post.id}</h2>
+    <div className="ml-2">
+      <h2 className="font-medium">Comments</h2>
       <div>{getContent()}</div>
     </div>
   );
