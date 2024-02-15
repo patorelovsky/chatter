@@ -2,14 +2,20 @@ import { configureStore } from "@reduxjs/toolkit";
 import { postApi } from "./apis/postApi";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { imageApi } from "./apis/imageApi";
+import { commentApi } from "./apis/commentApi";
 
 export const store = configureStore({
   reducer: {
     [postApi.reducerPath]: postApi.reducer,
     [imageApi.reducerPath]: imageApi.reducer,
+    [commentApi.reducerPath]: commentApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat([postApi.middleware, imageApi.middleware]),
+    getDefaultMiddleware().concat([
+      postApi.middleware,
+      imageApi.middleware,
+      commentApi.middleware,
+    ]),
 });
 
 setupListeners(store.dispatch);
