@@ -57,7 +57,7 @@ export default {
 }
 ```
 
-# .env.local example
+## .env.local example
 
 ```env
 VITE_BASE_URL=http://localhost:3000
