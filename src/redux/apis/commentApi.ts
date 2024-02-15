@@ -17,7 +17,7 @@ export const commentApi = createApi({
         params,
       }),
       transformResponse: ({ data }: { data: Comment[] }) => data,
-      providesTags: (results, _error, args) => {
+      providesTags(results, _error, args) {
         const tags = [];
 
         tags.push({ type: "Post" as const, id: args.postId });

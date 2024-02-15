@@ -17,7 +17,18 @@ export const postApi = createApi({
         params,
       }),
       transformResponse: ({ data }: { data: Post[] }) => data,
-      providesTags: ["Post"],
+      providesTags(results) {
+        const tags = [];
+
+        tags.push({ type: "Post" as const });
+        if (results) {
+          tags.push(
+            ...results.map(({ id }) => ({ type: "Post" as const, id }))
+          );
+        }
+
+        return tags;
+      },
     }),
     createPost: builder.mutation<Post, Omit<Post, "id">>({
       query: (post) => ({
@@ -25,14 +36,16 @@ export const postApi = createApi({
         method: "POST",
         body: post,
       }),
-      invalidatesTags: ["Post"],
+      invalidatesTags: [{ type: "Post" }],
     }),
     deletePost: builder.mutation<void, Pick<Post, "id">>({
       query: ({ id }) => ({
         url: `/posts/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Post"],
+      invalidatesTags: (_results, _error, args) => [
+        { type: "Post", id: args.id },
+      ],
     }),
   }),
 });

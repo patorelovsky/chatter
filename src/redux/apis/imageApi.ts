@@ -17,7 +17,7 @@ export const imageApi = createApi({
         params,
       }),
       transformResponse: ({ data }: { data: Image[] }) => data,
-      providesTags: (results, _error, args) => {
+      providesTags(results, _error, args) {
         const tags = [];
 
         tags.push({
@@ -43,7 +43,7 @@ export const imageApi = createApi({
         method: "POST",
         body: image,
       }),
-      invalidatesTags: (_result, _error, args) => {
+      invalidatesTags(_result, _error, args) {
         const tags = [];
 
         tags.push({
@@ -65,7 +65,7 @@ export const imageApi = createApi({
         url: `/images/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: (_result, _error, args) => {
+      invalidatesTags(_result, _error, args) {
         const tags = [];
 
         tags.push({ type: "Image" as const, id: args.id });
