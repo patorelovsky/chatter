@@ -28,3 +28,31 @@ export default {
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+## json-server db.json example
+
+```json
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "First Post"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "postId": 1,
+      "body": "Great post!"
+    }
+  ],
+  "images": [
+    {
+      "id": 1,
+      "parentId": 1,
+      "parentType": "post",
+      "url": "https://example.com/640/480"
+    }
+  ]
+}
+```
