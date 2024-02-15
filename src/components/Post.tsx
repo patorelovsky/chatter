@@ -15,7 +15,7 @@ export default function Post({ post }: Props) {
   }
 
   return (
-    <div className="border-b-2 border-black border-solid mb-2">
+    <div className="last:border-0 border-b-2 border-black border-solid mb-2">
       <div className="flex w-64 justify-between">
         <p>{post.text}</p>
         <button
