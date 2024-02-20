@@ -6,7 +6,7 @@ type Inputs = {
   title: string;
 };
 
-export default function PostForm() {
+export default function NewPostForm() {
   const {
     handleSubmit,
     register,
