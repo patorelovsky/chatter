@@ -1,9 +1,12 @@
 import { RegisterOptions, useForm } from "react-hook-form";
-import { useCreatePostMutation } from "../redux";
+import { useCreateImageMutation, useCreatePostMutation } from "../redux";
 import { useEffect } from "react";
+import { fileToBase64 } from "../utils";
+import { Image, Post } from "../types";
 
 type Inputs = {
   title: string;
+  files: FileList;
 };
 
 const textInputRegisterOptions: RegisterOptions<Inputs, "title"> = {
@@ -28,7 +31,6 @@ export default function NewPostForm() {
     reset,
     formState: { errors, isSubmitSuccessful },
   } = useForm<Inputs>();
-  const [createPost, result] = useCreatePostMutation();
 
   useEffect(() => {
     if (isSubmitSuccessful) {
@@ -36,15 +38,33 @@ export default function NewPostForm() {
     }
   }, [isSubmitSuccessful, reset]);
 
-  function onSubmit({ title }: Inputs) {
-    createPost({ text: title });
+  const [createPost, createPostResult] = useCreatePostMutation();
+  const [createImage] = useCreateImageMutation();
+
+  async function onSubmit({ title, files }: Inputs) {
+    const post = await createPost({ text: title }).unwrap();
+    await createImages(files, post);
+  }
+
+  async function createImages(files: FileList, post: Post) {
+    const filesArray = Array.from(files);
+    const filesBase64Promises = filesArray.map((file) => fileToBase64(file));
+    const filesBase64 = await Promise.all(filesBase64Promises);
+    const images: Omit<Image, "id">[] = filesBase64.map((fileBase64) => ({
+      url: fileBase64,
+      parentId: post.id,
+      parentType: "post",
+    }));
+    for (const image of images) {
+      createImage(image);
+    }
   }
 
   return (
     <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex items-center border-b border-teal-500 py-2">
         <input
-          disabled={result.isLoading}
+          disabled={createPostResult.isLoading}
           className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
           placeholder="Enter text..."
           {...register("title", textInputRegisterOptions)}
@@ -61,6 +81,16 @@ export default function NewPostForm() {
         >
           Cancel
         </button>
+      </div>
+      <div className="container flex space-x-2">
+        <input
+          disabled={createPostResult.isLoading}
+          type="file"
+          id="img"
+          accept="image/*"
+          multiple
+          {...register("files")}
+        />
       </div>
       {errors.title && (
         <div
