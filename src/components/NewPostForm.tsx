@@ -1,9 +1,24 @@
-import { useForm } from "react-hook-form";
+import { RegisterOptions, useForm } from "react-hook-form";
 import { useCreatePostMutation } from "../redux";
 import { useEffect } from "react";
 
 type Inputs = {
   title: string;
+};
+
+const textInputRegisterOptions: RegisterOptions<Inputs, "title"> = {
+  required: {
+    value: true,
+    message: "Text of the post cannot be empty!",
+  },
+  minLength: {
+    value: 10,
+    message: "Min length of post text is 10 characters.",
+  },
+  maxLength: {
+    value: 100,
+    message: "Max length of post text is 100 characters.",
+  },
 };
 
 export default function NewPostForm() {
@@ -32,20 +47,7 @@ export default function NewPostForm() {
           disabled={result.isLoading}
           className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
           placeholder="Enter text..."
-          {...register("title", {
-            required: {
-              value: true,
-              message: "Text of the post cannot be empty!",
-            },
-            minLength: {
-              value: 10,
-              message: "Min length of post text is 10 characters.",
-            },
-            maxLength: {
-              value: 100,
-              message: "Max length of post text is 100 characters.",
-            },
-          })}
+          {...register("title", textInputRegisterOptions)}
         />
         <button
           className="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
