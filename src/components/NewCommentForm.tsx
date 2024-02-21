@@ -14,7 +14,7 @@ export default function NewCommentForm({ parentId, parentType }: Props) {
     return await createComment({
       text,
       parentId,
-      parentType: "comment",
+      parentType,
     }).unwrap();
   }
 
@@ -22,7 +22,7 @@ export default function NewCommentForm({ parentId, parentType }: Props) {
     <TextWithImagesForm
       createParent={createParent}
       isLoading={createCommentResult.isLoading}
-      parentType={parentType}
+      parentType="comment"
     />
   );
 }
