@@ -1,4 +1,5 @@
 import { useGetPostsQuery } from "../redux";
+import Divider from "./Divider";
 import NewPostForm from "./NewPostForm";
 import Post from "./Post";
 
@@ -22,6 +23,7 @@ export default function PostList() {
     <div>
       <h1 className="font-medium text-xl">Posts</h1>
       <NewPostForm />
+      <Divider />
       <div>{getContent()}</div>
     </div>
   );

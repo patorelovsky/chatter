@@ -1,6 +1,7 @@
 import { useGetCommentsQuery } from "../redux";
 import type { Comment as CommentType } from "../types";
 import Comment from "./Comment";
+import Divider from "./Divider";
 import NewCommentForm from "./NewCommentForm";
 
 type Props = Pick<CommentType, "parentId" | "parentType">;
@@ -29,6 +30,7 @@ export default function CommentList({ parentId, parentType }: Props) {
     <div className="ml-2">
       <h2 className="font-medium">Comments</h2>
       <NewCommentForm parentId={parentId} parentType={parentType} />
+      <Divider />
       <div>{getContent()}</div>
     </div>
   );

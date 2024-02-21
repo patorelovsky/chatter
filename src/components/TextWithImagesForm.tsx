@@ -92,9 +92,13 @@ export default function TextWithImagesForm({
           Cancel
         </button>
       </div>
-      <div className="container flex space-x-2">
-        <FilePicker {...register("files")} disabled={isLoading} />
-      </div>
+      <input
+        type="file"
+        accept="image/*"
+        multiple
+        disabled={isLoading}
+        {...register("files")}
+      />
       {errors.text && (
         <div
           className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
