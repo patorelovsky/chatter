@@ -5,9 +5,14 @@ import TextWithImagesForm from "./TextWithImagesForm";
 type Props = {
   parentId: number;
   parentType: "post" | "comment";
+  handleOnReset?: () => void;
 };
 
-export default function NewCommentForm({ parentId, parentType }: Props) {
+export default function NewCommentForm({
+  parentId,
+  parentType,
+  handleOnReset,
+}: Props) {
   const [createComment, createCommentResult] = useCreateCommentMutation();
 
   async function createParent({ text }: TextObject) {
@@ -23,6 +28,7 @@ export default function NewCommentForm({ parentId, parentType }: Props) {
       createParent={createParent}
       isLoading={createCommentResult.isLoading}
       parentType="comment"
+      handleOnReset={handleOnReset}
     />
   );
 }

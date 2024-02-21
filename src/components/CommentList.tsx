@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useGetCommentsQuery } from "../redux";
 import type { Comment as CommentType } from "../types";
 import Comment from "./Comment";
@@ -7,6 +8,7 @@ import NewCommentForm from "./NewCommentForm";
 type Props = Pick<CommentType, "parentId" | "parentType">;
 
 export default function CommentList({ parentId, parentType }: Props) {
+  const [showForm, setShowForm] = useState(false);
   const { isFetching, isError, data } = useGetCommentsQuery({
     parentId,
     parentType,
@@ -28,7 +30,20 @@ export default function CommentList({ parentId, parentType }: Props) {
 
   return (
     <div>
-      <NewCommentForm parentId={parentId} parentType={parentType} />
+      {showForm ? (
+        <NewCommentForm
+          handleOnReset={() => setShowForm(false)}
+          parentId={parentId}
+          parentType={parentType}
+        />
+      ) : (
+        <h2
+          onClick={() => setShowForm(true)}
+          className="cursor-pointer text-blue-800 underline"
+        >
+          New Comment
+        </h2>
+      )}
       <Divider />
       <div>{getContent()}</div>
     </div>

@@ -29,12 +29,14 @@ type Props = {
   createParent: (text: TextObject) => Promise<{ id: number }>;
   isLoading: boolean;
   parentType: "post" | "comment";
+  handleOnReset?: () => void;
 };
 
 export default function TextWithImagesForm({
   createParent,
   isLoading,
   parentType,
+  handleOnReset,
 }: Props) {
   const {
     handleSubmit,
@@ -71,7 +73,11 @@ export default function TextWithImagesForm({
   }
 
   return (
-    <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onReset={handleOnReset}
+      className="w-full"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div className="flex items-center">
         <input
           disabled={isLoading}

@@ -2,7 +2,11 @@ import { useCreatePostMutation } from "../redux";
 import { TextObject } from "../types";
 import TextWithImagesForm from "./TextWithImagesForm";
 
-export default function NewPostForm() {
+type Props = {
+  handleOnReset?: () => void;
+};
+
+export default function NewPostForm({ handleOnReset }: Props) {
   const [createPost, createPostResult] = useCreatePostMutation();
 
   async function createParent({ text }: TextObject) {
@@ -14,6 +18,7 @@ export default function NewPostForm() {
       createParent={createParent}
       isLoading={createPostResult.isLoading}
       parentType="post"
+      handleOnReset={handleOnReset}
     />
   );
 }

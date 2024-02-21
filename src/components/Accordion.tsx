@@ -18,8 +18,10 @@ export default function Accordion({ children, title }: Props) {
         className="flex cursor-pointer items-center"
         onClick={handleHeadingClick}
       >
-        <p className="mr-2 font-medium text-xl">{showComments ? "˅" : ">"}</p>
-        <h2 className="font-medium text-xs">{title}</h2>
+        <p className="mr-2 font-medium text-2xl opacity-50">
+          {showComments ? "˅" : ">"}
+        </p>
+        <h2 className="font-medium">{title}</h2>
       </div>
       {showComments && children}
     </div>
