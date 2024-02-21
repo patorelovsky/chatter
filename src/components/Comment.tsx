@@ -1,5 +1,6 @@
 import { useDeleteCommentMutation } from "../redux";
 import type { Comment } from "../types";
+import Accordion from "./Accordion";
 import CommentList from "./CommentList";
 import ImageList from "./ImageList";
 
@@ -28,7 +29,9 @@ export default function Comment({ comment }: Props) {
         </button>
       </div>
       <ImageList parentId={comment.id} parentType="comment" />
-      <CommentList parentId={comment.id} parentType="comment" />
+      <Accordion title="Comments">
+        <CommentList parentId={comment.id} parentType="comment" />
+      </Accordion>
     </div>
   );
 }

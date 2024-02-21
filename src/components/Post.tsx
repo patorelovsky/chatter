@@ -1,5 +1,6 @@
 import { useDeletePostMutation } from "../redux";
 import { Post } from "../types/Post";
+import Accordion from "./Accordion";
 import CommentList from "./CommentList";
 import Divider from "./Divider";
 import ImageList from "./ImageList";
@@ -30,7 +31,9 @@ export default function Post({ post }: Props) {
       </div>
       <ImageList parentId={post.id} parentType="post" />
       <Divider />
-      <CommentList parentId={post.id} parentType="post" />
+      <Accordion title="Comments">
+        <CommentList parentId={post.id} parentType="post" />
+      </Accordion>
     </div>
   );
 }
