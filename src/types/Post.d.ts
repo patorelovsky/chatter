@@ -1,4 +1,5 @@
-export type Post = {
+import { TextObject } from "./TextObject";
+
+export type Post = TextObject & {
   id: number;
-  text: string;
 };

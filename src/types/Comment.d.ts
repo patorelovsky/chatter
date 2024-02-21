@@ -1,6 +1,7 @@
-export type Comment = {
+import { TextObject } from "./TextObject";
+
+export type Comment = TextObject & {
   id: number;
-  text: string;
   parentId: number;
   parentType: "post" | "comment";
 };

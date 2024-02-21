@@ -1,0 +1,3 @@
+.imageDialog::backdrop {
+  backdrop-filter: blur(1px);
+}
