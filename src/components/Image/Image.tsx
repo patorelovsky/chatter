@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import type { Image } from "../types";
+import type { Image } from "../../types";
 import styles from "./Image.module.css";
 
 type Props = { image: Image };

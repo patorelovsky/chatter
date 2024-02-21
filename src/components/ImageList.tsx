@@ -1,6 +1,6 @@
 import { useGetImagesQuery } from "../redux";
 import type { Image as ImageType } from "../types";
-import Image from "./Image";
+import Image from "./Image/Image";
 
 type Props = Pick<ImageType, "parentId" | "parentType">;
 
