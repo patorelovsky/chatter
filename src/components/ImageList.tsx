@@ -14,7 +14,7 @@ export default function ImageList({ parentId, parentType }: Props) {
 
   function getContent() {
     if (isFetching) {
-      return <div>Loading...</div>;
+      return <div>Loading images...</div>;
     } else if (isError) {
       return <div>Error loading images.</div>;
     } else {

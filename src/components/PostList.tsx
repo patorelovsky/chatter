@@ -11,7 +11,7 @@ export default function PostList() {
 
   function getContent() {
     if (isFetching) {
-      return <div>Loading...</div>;
+      return <div>Loading posts...</div>;
     } else if (isError) {
       return <div>Error loading posts.</div>;
     } else {

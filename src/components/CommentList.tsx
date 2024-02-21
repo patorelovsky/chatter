@@ -16,7 +16,7 @@ export default function CommentList({ parentId, parentType }: Props) {
 
   function getContent() {
     if (isFetching) {
-      return <p>Loading...</p>;
+      return <p>Loading comments...</p>;
     } else if (isError) {
       return <p>Error loading comments.</p>;
     } else {
