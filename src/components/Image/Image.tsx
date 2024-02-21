@@ -23,6 +23,7 @@ export default function Image({ image }: Props) {
         onClick={handleImageClick}
       />
       <dialog
+        data-testid="dialog"
         ref={dialogRef}
         className={styles.imageDialog}
         onClick={handleDialogClick}
